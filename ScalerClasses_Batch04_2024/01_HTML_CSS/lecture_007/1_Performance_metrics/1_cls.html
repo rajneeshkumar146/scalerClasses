@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        /* CSS to hide the image initially */
+        .hidden-image {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* CSS to show the image abruptly */
+        .visible-image {
+            opacity: 1;
+        }
+    </style>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // Show the image abruptly after a delay
+            setTimeout(() => {
+                document.querySelector('.hidden-image').classList.add('visible-image');
+            }, 2000);
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Website with Cumulative Layout Shift (CLS) Example</h1>
+    <img src="https://images.unsplash.com/photo-1508317469940-e3de49ba902e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Example Image" class="hidden-image"
+    height="300">
+    <div class="shifting-element">
+        <h1>This text appears without layout shift.
+Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam, delectus quis incidunt itaque hic nam voluptate exercitationem in sequi esse expedita ipsum minus et officiis vel, sint odio laudantium est.
+        </h1>
+    </div>
+</body>
+
+</html>
