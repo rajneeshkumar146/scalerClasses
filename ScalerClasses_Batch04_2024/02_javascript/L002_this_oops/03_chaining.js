@@ -26,14 +26,16 @@ let ladder2 = {
     step: 0,
     up() {
         this.step++;
+        return this;
     },
     down() {
         this.step--;
+        return this;
     },
     showStep: function () {
         console.log(this.step);
     }
 };
 
-
+// 20k.20k.20k.20k.showSteps();
 ladder2.up().up().up().down().showStep();
