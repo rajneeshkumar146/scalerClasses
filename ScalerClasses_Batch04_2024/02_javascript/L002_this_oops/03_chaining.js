@@ -21,6 +21,19 @@ ladder.down(); // 2
 
 ladder.showStep(); // 2
 
+// --------------------------------------------------------------------------------------------
+let ladder2 = {
+    step: 0,
+    up() {
+        this.step++;
+    },
+    down() {
+        this.step--;
+    },
+    showStep: function () {
+        console.log(this.step);
+    }
+};
 
 
-ladder.up().up().up().down().showStep();
+ladder2.up().up().up().down().showStep();
