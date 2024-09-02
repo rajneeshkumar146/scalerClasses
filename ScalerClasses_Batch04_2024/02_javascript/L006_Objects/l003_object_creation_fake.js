@@ -49,12 +49,12 @@ class SuperHuman extends Person {
     }
 }
 
-const rajneesh = new Person("Rajneesh", 26);
-rajneesh.sayHi();
+// const rajneesh = new Person("Rajneesh", 26);
+// rajneesh.sayHi();
 
-const shubham = new SuperHuman("Shubham", 29);
-shubham.sayHi();
-shubham.sayBye();
+// const shubham = new SuperHuman("Shubham", 29);
+// shubham.sayHi();
+// shubham.sayBye();
 
 /***
  * inheritance :  code sharing , saving memory 
@@ -73,3 +73,29 @@ Class over Function/Object
 2. Class remove the conflict, That a function can behave like a object.
 3.  class is suppose to construct only not called by someone.
 */
+
+
+// var varName = 10;
+// function b() {
+//     console.log(varName);
+// }
+
+// function fn() {
+//     var varName = 20;
+//     b();
+//     console.log(varName);
+// } 
+
+// fn();  // 10 20
+
+var varName = 10; 
+function fn() {
+    var varName = 20;
+    function b() {
+        console.log(varName);
+    }
+    b();
+    console.log(varName);
+} 
+
+fn(); // o/p: 20,20
