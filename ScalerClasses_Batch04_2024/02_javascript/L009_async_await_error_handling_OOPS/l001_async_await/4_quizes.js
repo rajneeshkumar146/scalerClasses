@@ -1,38 +1,38 @@
-function resolveAfterNSeconds(delay, x) {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            console.log("Value: " + x);
-            resolve(x);
-        }, delay);
-    });
-}
+// function resolveAfterNSeconds(delay, x) {
+//     return new Promise(resolve => {
+//         setTimeout(() => {
+//             console.log("Value: " + x);
+//             resolve(x);
+//         }, delay);
+//     });
+// }
 
-(function () {
-    let a = resolveAfterNSeconds(1000, 1)
-    a.then(async function (x) {
-        // Time: 1s
+// (function () {
+//     let a = resolveAfterNSeconds(1000, 1)
+//     a.then(async function (x) {
+//         // Time: 1s
 
-        let y = await resolveAfterNSeconds(2000, 2) // Time: 1s + 2s = 3s
-        let z = await resolveAfterNSeconds(1000, 3) // Time: 1s + 2s + 1s = 4s
-
-
-        // let p = await resolveAfterNSeconds(2000, 4);  // Time: 1s + 2s + 1s + 2s = 6s
-        // let q = await resolveAfterNSeconds(1000, 5);   // Time: 1s + 2s + 1s + 2s + 1s = 7s
-
-        let p1 = resolveAfterNSeconds(2000, 4); // Time: 1s + 2s + 1s + 2s = 6s
-        let q1 = resolveAfterNSeconds(1000, 5); // Time: 1s + 2s + 1s + 1s = 5s 
+//         let y = await resolveAfterNSeconds(2000, 2) // Time: 1s + 2s = 3s
+//         let z = await resolveAfterNSeconds(1000, 3) // Time: 1s + 2s + 1s = 4s
 
 
-        console.log(x + y + z + await p1 + await q1);
+//         // let p = await resolveAfterNSeconds(2000, 4);  // Time: 1s + 2s + 1s + 2s = 6s
+//         // let q = await resolveAfterNSeconds(1000, 5);   // Time: 1s + 2s + 1s + 2s + 1s = 7s
+
+//         let p1 = resolveAfterNSeconds(2000, 4); // Time: 1s + 2s + 1s + 2s = 6s
+//         let q1 = resolveAfterNSeconds(1000, 5); // Time: 1s + 2s + 1s + 1s = 5s 
 
 
-        /**
-         * litreal meaning of await -> waiting for some result 
-         * if result is pdening -> wait
-         * if your result -> use 
-         * **/
-    })
-})()
+//         console.log(x + y + z + await p1 + await q1);
+
+
+//         /**
+//          * litreal meaning of await -> waiting for some result 
+//          * if result is pdening -> wait
+//          * if your result -> use 
+//          * **/
+//     })
+// })()
 
 
 // Statement 2
