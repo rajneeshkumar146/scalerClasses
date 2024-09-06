@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Tasks, Microtasks, call Stack , UIRenders</h1>
+    <ol>
+        <!-- Synchronous code -->
+        <!-- Always have the highest priority. -->
+
+
+
+    </ol>
+
+</body>
+
+
+<script>
+    // A G E D I K F J
+    console.log("A, Sync stack");
+
+    /********to executes a piece of code before redendering*****/
+    requestAnimationFrame(function () {
+        console.log('B request animation Frame');
+    });
+
+    /******** Callback queue/task Queue *********/
+    setTimeout(() => {
+        console.log("C, Microtask queue");
+    }, 0);
+
+    /******** fn will go into microtask queue *********/
+
+    // Case 1
+    // Wrong answer: A G E F D I J K C
+    // Correct answer: A G E D I K F J C
+
+    Promise.resolve().then(() => {
+        console.log("E, Microtask queue");
+    }).then(() => {
+        console.log("F, Microtask queue");
+    });
+
+    queueMicrotask(function () {
+        console.log("D, Microtask queue");
+    });
+
+    Promise.resolve().then(() => {
+        console.log("I, Microtask queue");
+        return Promise.resolve();
+    }).then(() => {
+        console.log("J, Microtask queue");
+    });
+
+    queueMicrotask(function () {
+        console.log("K, Microtask queue");
+    });
+
+    // Case 2:
+    // Correct answer: A G E F D I J K C
+    // Promise.resolve().then(() => {
+    //     console.log("E, Microtask queue");
+    // });
+
+    // Promise.resolve().then(() => {
+    //     console.log("F, Microtask queue");
+    // });
+
+    // queueMicrotask(function () {
+    //     console.log("D, Microtask queue");
+    // });
+
+    // Promise.resolve().then(() => {
+    //     console.log("I, Microtask queue");
+    //     return Promise.resolve();
+    // });
+
+    // Promise.resolve().then(() => {
+    //     console.log("J, Microtask queue");
+    // });
+
+    // queueMicrotask(function () {
+    //     console.log("K, Microtask queue");
+    // });
+
+    console.log("G, Sync stack");
+</script>
+
+</html>
