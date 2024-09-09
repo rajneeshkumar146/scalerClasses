@@ -1,0 +1,2 @@
+1. Good to read: https://nodejs.org/en/learn/asynchronous-work/understanding-setimmediate
+2. Basic of event loop: https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick (Good for knowledge)

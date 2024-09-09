@@ -6,11 +6,24 @@
  * */
 
 function mysetInterval(cb, delay) {
+    let obj = {
+        flag: true
+    }
 
+    function helperMethod() {
+        if (obj.flag) {
+            cb();
+            setTimeout(helperMethod, delay);
+        }
+    }
+
+
+    setTimeout(helperMethod, delay);
+    return obj;
 }
 
-function clearMyInterval(obj){
-
+function clearMyInterval(obj) {
+    obj.flag = false;
 }
 
 /*******usage****/
@@ -19,7 +32,7 @@ function cb() {
 }
 
 function clearCb() {
-    console.log("cancelled th cb");
+    console.log("cancelled the cb");
     clearMyInterval(obj);
 }
 let obj = mysetInterval(cb, 1000);
