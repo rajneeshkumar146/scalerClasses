@@ -88,12 +88,12 @@ const executeFn = (resolve, reject) => {
     // cb based fn.
     setTimeout(() => {
         resolve("Hey there I'm resolved.")
-    }, 2000);
+    }, 1000);
 
     // cb based fn.
     setTimeout(() => {
         reject("Hey there I'm rejected.")
-    }, 1000);
+    }, 2000);
 }
 
 
@@ -105,6 +105,8 @@ console.log("Before");
 const cb = (data) => {
     console.log(data);
 }
+
+console.log(myPromise);
 
 myPromise.then(cb);
 
