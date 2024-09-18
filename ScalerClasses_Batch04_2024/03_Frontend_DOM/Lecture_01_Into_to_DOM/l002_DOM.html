@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>I am another 1</h1>
+    <h1 class="hifine">I am h1</h1>
+    <h1>I am another 2</h1>
+    <h1>I am another 3</h1>
+    <h2> I am h1</h2>
+    <h3> I am h1</h3>
+
+    <p class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet inventore adipisci dignissimos
+        voluptatibus ad
+        debitis vel natus nobis? Doloribus fugit vitae veritatis esse! Cumque odio quasi sapiente quisquam est! Odio!
+    </p>
+    <p class="para" id="uniqueId">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet inventore adipisci
+        dignissimos
+        voluptatibus ad
+        debitis vel natus nobis? Doloribus fugit vitae veritatis esse! Cumque odio quasi sapiente quisquam est! Odio!
+    </p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet inventore adipisci dignissimos voluptatibus ad
+        debitis vel natus nobis? Doloribus fugit vitae veritatis esse! Cumque odio quasi sapiente quisquam est! Odio!
+    </p>
+
+    <input type="text">
+    <input type="password" id="special">
+    <input type="text">
+    <button>click</button>
+
+</body>
+
+<script>
+
+    /*********************** Read ***********************/
+    // Returns first element using CSS selectors.
+    // const h1 = document.querySelector('h1');
+    // console.log("First H1 element: ", h1);
+
+    // let inputPass = document.querySelector("input[type='password']");
+    // console.log("input password: ", inputPass);
+
+    // return all the element using css selector.
+    // T: O(Total number of nodes at targeted levels)
+    // result of `querySelectorAll` is not array it's a NodeList and we are allowed to use almost all type of HOF.
+    const h1Arr = document.querySelectorAll("h1");
+    console.log("All h1 element: ",h1Arr);
+    // console.log(h1Arr[0]);
+    // console.log(h1Arr[1]);
+
+    // HOF.
+    h1Arr.forEach((elem) => {
+        console.log(elem.textContent);
+    });
+
+    // getElementById : as per the termology id should be unique so you always get a single element.
+    // const elem = document.getElementById("para");
+    // console.log("element: ", elem);
+
+
+    // getElementByClassName
+    const allElem = document.getElementsByClassName("para");
+    console.log("all element: ", allElem);
+
+    // forEach is not present for HTMLCollection.
+
+    /***
+         *
+         * when you are dong a read operation for an elemnet -> nodelist , html collection and both are array like but not array
+         * */
+
+    const newH1Arr = Array.from(h1Arr);
+    console.log(newH1Arr);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 
+     * What is DOM -> It is an API that represent an HTML page.
+     * 
+     * 
+     * DOM -> 
+     *       Document               Object               Model
+     *       file.html              element/tags         structure
+     * 
+     * 
+     * 
+     * 
+     * 
+     * **/
+</script>
+
+</html>

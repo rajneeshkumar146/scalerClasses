@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>click Me </button>
+    <input type="text">
+    <ul></ul>
+</body>
+
+<script>
+
+    const button = document.querySelector("button");
+    const input = document.querySelector("input");
+    const ul = document.querySelector("ul");
+
+    button.addEventListener("click", cb);
+
+    function cb(){
+        // console.log("How are you!!!");
+        if(input.value){
+            // create.
+            const li = document.createElement('li');
+            const value = input.value;
+
+            // content.
+            li.innerText = value;
+
+            //add.
+            ul.appendChild(li);
+
+            // refresh you input section.
+            input.value = "";
+        }
+    }
+
+
+    /**
+     * What do you understand by event listeners? 
+       -> Event listeners are the procedures that wait for a particular event to occur like a mouse click, keyboard press, etc. 
+       When the event occurs this procedures follow the step of instructions.
+     * 
+     * **/
+</script>
+</html>

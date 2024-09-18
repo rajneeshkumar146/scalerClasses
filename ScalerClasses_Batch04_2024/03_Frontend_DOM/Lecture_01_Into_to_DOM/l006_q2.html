@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>lorem</p>
+    <p>lorem</p>
+    <p>lorem</p>
+    <p>lorem</p>
+    <p>lorem</p>
+    <p>lorem</p>
+    <p>lorem</p>
+    <p>lorem</p>
+    <p>lorem</p>
+    <p>lorem</p>
+    <h1>Hi i am h1 </h1> 
+</body>
+
+<script>
+
+// 1. convert all the para -> green
+let allPs = document.querySelectorAll("p");
+allPs.forEach((p) => {
+    p.style.color = "green";
+});
+
+// 2. Delete h1 tag.
+const h1 = document.querySelector("h1");
+h1.remove();
+
+
+
+
+</script>
+</html>
