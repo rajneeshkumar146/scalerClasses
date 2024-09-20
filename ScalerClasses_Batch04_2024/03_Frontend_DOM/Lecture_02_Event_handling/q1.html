@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -110,4 +111,37 @@
     </div>
     <!-- Q Make the filter work  -->
 </body>
+
+<script>
+
+    const selectBox = document.querySelector("select");
+    const moviesCardArr = document.querySelectorAll(".movies");
+
+    // Listen to select actions.
+    selectBox.addEventListener("change", (e) => {
+        // console.log("change: " + e.target.value);
+        filterMovie(e.target.value);
+    });
+
+    // visibility : hidden -> opacity =0, it can be clicked , display : none(is is non existend)
+    const filterMovie = (selectedGenere) => {
+        for(let i = 0; i < moviesCardArr.length;i++){
+            let moviesCardNode = moviesCardArr[i];
+            let currentMovieGenre = moviesCardNode.querySelector("p").getAttribute("data-category");
+
+            if(currentMovieGenre != selectedGenere && selectedGenere != "none"){
+                // moviesCardNode.style.visibility = "hidden";
+                moviesCardNode.style.display = "none";
+            }else{
+                moviesCardNode.style.display = "block";
+            }
+        }
+
+    }
+
+
+
+
+</script>
+
 </html>
