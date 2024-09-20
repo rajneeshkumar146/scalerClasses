@@ -29,6 +29,21 @@
     </div>
 
     <script>
+        const parent = document.querySelector(".container");
+
+        parent.addEventListener("click", (event) => {
+            const color = event.target.getAttribute("class");
+
+            if (color != "container") {
+                event.currentTarget.style.backgroundColor = color;
+            } else {
+                event.currentTarget.style.backgroundColor = "white";
+            }
+        });
+
+        // parent.addEventListener("dblclick", (event) => {
+        //     event.currentTarget.style.backgroundColor = "white";
+        // })
 
     </script>
 
