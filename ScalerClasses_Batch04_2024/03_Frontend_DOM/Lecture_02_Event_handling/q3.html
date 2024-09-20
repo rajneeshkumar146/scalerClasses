@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div id="productList">
         <div class="product">
@@ -27,8 +29,24 @@
 
     <script>
 
+        const parent = document.querySelector("#productList");
+        parent.addEventListener("click", addToCart);
         
+        let Child_Index_In_Product_Container = 1;
+        
+        function addToCart(event) {
+            let target = event.target;
+            if (target.getAttribute("class") === "add-to-cart") {
+                let product = target.parentElement;
+                let price = product.children[Child_Index_In_Product_Container].innerText;
+
+                console.log(`You have added ${price} to your cart`);
+            }
+        }
+
+
     </script>
-    
+
 </body>
+
 </html>
