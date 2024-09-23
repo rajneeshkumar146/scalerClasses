@@ -17,10 +17,12 @@ const starContainer = document.querySelector(".star_container");
 const countSpan = document.querySelector("#count");
 const starArray = document.querySelectorAll(".star");
 let clickedStarIndex = 0;
+let RATING_COLOR = "yellow";
+
 
 // Event listeners for click on star.
-starContainer.addEventListener("click", (event)=>{
-    if(event.target.hasAttribute("idx")){
+starContainer.addEventListener("click", (event) => {
+    if (event.target.hasAttribute("idx")) {
         clickedStarIndex = event.target.getAttribute("idx");
         fillStarsToYellowUptoIndex(clickedStarIndex);
         countSpan.textContent = clickedStarIndex;
@@ -28,32 +30,31 @@ starContainer.addEventListener("click", (event)=>{
 });
 
 // Event Listners for MouseHover.
-starContainer.addEventListener("mouseover", (event)=>{
-    if(event.target.hasAttribute("idx")){
+starContainer.addEventListener("mouseover", (event) => {
+    if (event.target.hasAttribute("idx")) {
         currentHoverIndex = event.target.getAttribute("idx");
         fillStarsToYellowUptoIndex(currentHoverIndex);
     }
-
 });
 
 // Event Listners for MouseLeave.
-starContainer.addEventListener("mouseleave", (event)=>{
+starContainer.addEventListener("mouseleave", (event) => {
     fillStarsToYellowUptoIndex(clickedStarIndex);
 });
 
 
 // Helper logics.
-function fillStarsToYellowUptoIndex(clickedStarIndex){
+function fillStarsToYellowUptoIndex(clickedStarIndex) {
     restAllStarsToGrayColor();
 
-    for(let currentStarIndex = 0; currentStarIndex < clickedStarIndex; currentStarIndex++){
-        starArray[currentStarIndex].classList.add("yellow");
+    for (let currentStarIndex = 0; currentStarIndex < clickedStarIndex; currentStarIndex++) {
+        starArray[currentStarIndex].classList.add(RATING_COLOR);
     }
 }
 
-function restAllStarsToGrayColor(){
-    for(star of starArray){
-        star.classList.remove("yellow");
+function restAllStarsToGrayColor() {
+    for (star of starArray) {
+        star.classList.remove(RATING_COLOR);
     }
 }
 
