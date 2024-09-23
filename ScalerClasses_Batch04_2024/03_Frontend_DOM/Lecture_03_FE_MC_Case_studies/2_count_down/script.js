@@ -28,3 +28,27 @@ const minutesInput = document.getElementById("min");
 const secondsInput = document.getElementById("sec");
 
 
+// Event Listners
+startBtn.addEventListener("click", (e) => {
+    // 1. take inputs and validate it.
+    let hours = ??
+    let minutes = ??
+    let seconds = ??
+
+
+    if(!validateInputTime(hours, minutes, seconds)){
+        return;
+    }
+});
+
+
+
+// Helper methods.
+
+function getValidInput(value){
+    return !value ? 0 : value;
+}
+
+function validateInputTime(hours, minutes, seconds){
+  return true;
+}
