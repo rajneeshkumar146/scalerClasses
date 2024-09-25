@@ -1,0 +1,95 @@
+<!-- 
+
+    Question: Build mutiple comment box.
+
+    Use case:
+       1. Mutiple reply(Example: Slack, rediit)
+       2. Feedback box ith multiple threads.
+       3. fb chat.
+       4. blog comment box.
+
+    Flavor:
+       1. JSON Data -> File system.
+
+    Must have feature:
+       1. Numbers of thread it is unlimited/How deep tree can be?
+       2. display comment and reply button in screen. 
+
+    Good to have features:
+       1. Option of reaction(emojies) over replies.
+       2. we have to presist the entire comment thread in some DB/local storgae.
+
+    Approach:
+       1. HTML/CSS
+            a. Get the static HTML.
+            b. I try to simulate the dynamic behaviour of my static html, to see how my JS chnage the DOM.
+       
+       2. Javascript:
+            a. Event Listners:
+                i. reply button -> after click I will see a input box and submit button.
+                ii. Once submit button is clicked we have to show the input on my HTML.
+
+       3. Edge Cases:
+          i. Empty comment.
+          ii. If person invoked reply action multiple times, this should be count as a once.
+          iii. If we click some where else input box should be vanished.
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="comment-container">
+            <div class="comment_card">
+                <h3 class="coment_text">Good Morning Everyone, How are you?</h3>
+                <div class="reply">Reply</div>
+            </div>
+
+
+            <!-- Input box -->
+            <!-- <div class="comment_reply_conatiner">
+                <input type="text" placeholder="Type your comment here...">
+                <button class="btn-submit">Submit</button>
+            </div> -->
+
+            <!-- Threads -->
+            <!-- <div class="comment-container">
+                <div class="comment_card">
+                    <h3 class="coment_text">Thanks for asking, How are you?</h3>
+                    <div class="reply">Reply</div>
+                </div>
+
+                <div class="comment-container">
+                    <div class="comment_card">
+                        <h3 class="coment_text">Cool!!!</h3>
+                        <div class="reply">Reply</div>
+                    </div>
+                </div>
+
+                <div class="comment-container">
+                    <div class="comment_card">
+                        <h3 class="coment_text">Thanx!!!</h3>
+                        <div class="reply">Reply</div>
+                    </div>  
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
