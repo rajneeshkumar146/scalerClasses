@@ -38,8 +38,7 @@ function hoverEffect(table, N, M, player) {
         removeYellowColorFromAllCells(boxArr);
         let [curr_row, curr_col] = dataIndex.split("-").map(idx => idx);
 
-        let directionVector = getDirectionVector(player);
-        storageOfPossibleMoves = possibleMoves(parseInt(curr_row), parseInt(curr_col), N, M, directionVector);
+        storageOfPossibleMoves = possibleMoves(parseInt(curr_row), parseInt(curr_col), N, M, player);
 
         colorMyPossibleMoves(storageOfPossibleMoves, boxArr);
     });
@@ -51,11 +50,14 @@ function hoverEffect(table, N, M, player) {
     }
 }
 
-function possibleMoves(curr_row, curr_col, N, M, direction) {
+function possibleMoves(curr_row, curr_col, N, M, player) {
+    let direction = getDirectionVector(player);
+    let maxRadius = getMaxiumRadius(player);
+
     storageOfPossibleMoves = {};
 
     for (let dir of direction) {
-        for (let radius = 0; radius <= Math.max(N, M); radius++) {
+        for (let radius = 0; radius <= maxRadius; radius++) {
             let r = curr_row + (radius * dir[0]);
             let c = curr_col + (radius * dir[1]);
 
@@ -87,8 +89,23 @@ function getDirectionVector(player) {
         return [[1, 1], [-1, 1], [1, -1], [-1, -1], [0, 1], [1, 0], [0, -1], [-1, 0]];
     } else if (player === "rook") {
         return [[0, 1], [1, 0], [0, -1], [-1, 0]];
-    }else if(player = "knight"){
+    } else if (player = "knight") {
+        return [
+            [-2, -1], [-1, -2], [1, -2], [2, -1],  // Up-left, Up-right
+            [-2, 1], [-1, 2], [1, 2], [2, 1]       // Down-left, Down-right
+        ];
+    }
+}
 
+function getMaxiumRadius(player) {
+    if (player === "bishop") {
+        return 8;
+    } else if (player === "queen") {
+        return 8;
+    } else if (player === "rook") {
+        return 8;
+    } else if (player = "knight") {
+        return 1;
     }
 }
 
