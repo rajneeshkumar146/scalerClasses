@@ -6,13 +6,33 @@ const uid = new ShortUniqueId();
 const addBtn = document.querySelector(".add-btn");
 const removeBtn = document.querySelector(".remove-btn");
 
+//========================= Local Storage ========================
+
+let allTickets = localStorage.getItem("KanabanBoardCards") || [];
+let isFromLocalStorage = false;
+
+if (typeof allTickets === "string") {
+    allTickets = JSON.parse(allTickets);
+    populateUI();
+}
+
+function populateUI() {
+    isFromLocalStorage = true;
+    for (let i = 0; i < allTickets.length; i++) {
+        let ticket = allTickets[i];
+        buildTicketWithAllFeatures(ticket.content, ticket.color, ticket.isLocked, ticket.id);
+    }
+    isFromLocalStorage = false;
+}
+
+
+
 //========================= Lock and Unlock ========================
 
-function addLockAndUnlock(ticketArea, lockBtn) {
+function addLockAndUnlock(ticketArea, lockBtn, currentId) {
 
-    lockBtn.addEventListener("click", () => {
+    lockBtn.addEventListener("click", (event) => {
         let isLocked = lockBtn.children[0].classList.contains("fa-lock");
-
         if (isLocked) {
             lockBtn.children[0].classList.remove("fa-lock");
             lockBtn.children[0].classList.add("fa-lock-open");
@@ -22,13 +42,24 @@ function addLockAndUnlock(ticketArea, lockBtn) {
             lockBtn.children[0].classList.add("fa-lock");
             ticketArea.setAttribute("contenteditable", false);
         }
+
+        // update your local storgae about the current status.
+        let ticketObj = allTickets.find(ticket => {
+            return ticket.id === currentId;
+        });
+
+        ticketObj.content = ticketArea.textContent;
+        ticketObj.isLocked = lockBtn.children[0].classList.contains("fa-lock");
+        updateLocalStorage();
+
+        event.stopImmediatePropagation();
     });
 }
 
 
 //========================= Change color ===========================
 
-function addToggleColor(ticketColorEle) {
+function addToggleColor(ticketColorEle, currentId) {
     let colors = ["pink", "blue", "purple", "green"];
     ticketColorEle.addEventListener("click", (event) => {
         const currentColor = event.target.classList[1];
@@ -37,6 +68,16 @@ function addToggleColor(ticketColorEle) {
 
         event.target.classList.remove(currentColor);
         event.target.classList.add(colors[nextIdx]);
+
+        // update your local storgae about the current status.
+        let ticketObj = allTickets.find(ticket => {
+            return ticket.id === currentId;
+        });
+
+        ticketObj.color = colors[nextIdx]
+        updateLocalStorage();
+
+        event.stopImmediatePropagation();
     });
 }
 
@@ -61,8 +102,7 @@ function filterTickets() {
             }
         }
 
-
-
+        event.stopImmediatePropagation();
     });
 
     toolBoxPriorityContainer.addEventListener("dblclick", (event) => {
@@ -70,26 +110,42 @@ function filterTickets() {
         for (ticket of ticketArray) {
             ticket.style.display = "block";
         }
+
+        event.stopImmediatePropagation();
     });
 }
 
 //========================= Delete feature ===========================
 
-function deleteListner(ticketContainer) {
-    ticketContainer.addEventListener("click", () => {
+function deleteListner(ticketContainer, currentId) {
+    ticketContainer.addEventListener("click", (event) => {
+        console.log("Event Bubling");
         if (removeBtn.style.color === "red") {
             ticketContainer.remove();
+
+            // update your local storgae about the current status.
+            let newAllTickets = allTickets.filter(ticket => {
+                return ticket.id != currentId;
+            });
+
+            allTickets = newAllTickets;
+            updateLocalStorage();
         }
+
+        event.stopImmediatePropagation();
+
     });
 }
 
 function deleteBtnEventListener() {
-    removeBtn.addEventListener("click", () => {
+    removeBtn.addEventListener("click", (event) => {
         if (removeBtn.style.color !== "red") {
             removeBtn.style.color = "red";
         } else {
             removeBtn.style.color = "";
         }
+
+        event.stopImmediatePropagation();
     });
 }
 
@@ -122,8 +178,10 @@ function activeColorToCreateTicket(priorityColorSetModal, priorityColorArrayOfMo
             return;
         }
 
+        resetActiveStatusOfColorModal(priorityColorArrayOfModal);
+
         event.target.classList.add("active");
-    })
+    });
 }
 
 function resetActiveStatusOfColorModal(priorityColorArrayOfModal) {
@@ -135,6 +193,7 @@ function resetActiveStatusOfColorModal(priorityColorArrayOfModal) {
 
 function createTicketWithContentAndActiveColor(modal, priorityColorArrayOfModal) {
     modal.addEventListener("keypress", (event) => {
+        event.stopPropagation();
         if (event.key !== "Enter") {
             return;
         }
@@ -182,31 +241,51 @@ function buildTicketWithAllFeatures(writtenContent, selectedColor, isLocked, cur
     // Lock-Unlock
     const ticketArea = ticketContainer.querySelector(".ticket-area");
     const lockBtn = ticketContainer.querySelector(".lock-unlock");
-    addLockAndUnlock(ticketArea, lockBtn);
+    addLockAndUnlock(ticketArea, lockBtn, currentId);
 
 
     // Toggle color
     const ticketColorrEle = ticketContainer.querySelector(".ticket-color");
-    addToggleColor(ticketColorrEle);
+    addToggleColor(ticketColorrEle, currentId);
 
     // Delete Event Listner.
-    deleteListner(ticketContainer);
+    deleteListner(ticketContainer, currentId);
+
+    if (!isFromLocalStorage) {
+        createTicketObjAndUpdateLocalStorage(writtenContent, selectedColor, isLocked, currentId);
+    }
+}
+
+function createTicketObjAndUpdateLocalStorage(writtenContent, selectedColor, isLocked, currentId) {
+    let ticketObj = {
+        id: currentId,
+        content: writtenContent,
+        color: selectedColor,
+        isLocked: isLocked
+    };
+
+    allTickets.push(ticketObj);
+    updateLocalStorage();
+}
+
+function updateLocalStorage() {
+    localStorage.setItem("KanabanBoardCards", JSON.stringify(allTickets));
 }
 
 
 
 //=========================  Testing purpose only: Calling methods ===========================
 
-const ticketContainerList = mainContainer.querySelectorAll(".ticket-cont");
-const ticketAreaList = mainContainer.querySelectorAll(".ticket-area");
-const lockBtnList = mainContainer.querySelectorAll(".lock-unlock");
-const ticketColorEleList = mainContainer.querySelectorAll(".ticket-color");
+// const ticketContainerList = mainContainer.querySelectorAll(".ticket-cont");
+// const ticketAreaList = mainContainer.querySelectorAll(".ticket-area");
+// const lockBtnList = mainContainer.querySelectorAll(".lock-unlock");
+// const ticketColorEleList = mainContainer.querySelectorAll(".ticket-color");
 
-for (let i = 0; i < ticketContainerList.length; i++) {
-    deleteListner(ticketContainerList[i]);
-    addLockAndUnlock(ticketAreaList[i], lockBtnList[i]);
-    addToggleColor(ticketColorEleList[i]);
-}
+// for (let i = 0; i < ticketContainerList.length; i++) {
+//     deleteListner(ticketContainerList[i]);
+//     addLockAndUnlock(ticketAreaList[i], lockBtnList[i]);
+//     addToggleColor(ticketColorEleList[i]);
+// }
 
 filterTickets();
 // deleteBtnEventListener();
