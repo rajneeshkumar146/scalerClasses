@@ -102,6 +102,7 @@ function modalCreation() {
 
     addBtnEventListner(modal);
     deleteBtnEventListener();
+    activeColorToCreateTicket(priorityColorSetModal, priorityColorArrayOfModal);
     createTicketWithContentAndActiveColor(modal, priorityColorArrayOfModal);
 }
 
@@ -113,6 +114,22 @@ function addBtnEventListner(modal) {
     addBtn.addEventListener("dblclick", () => {
         modal.style.display = "none";
     });
+}
+
+function activeColorToCreateTicket(priorityColorSetModal, priorityColorArrayOfModal) {
+    priorityColorSetModal.addEventListener("click", (event) => {
+        if (event.target === event.currentTarget) {
+            return;
+        }
+
+        event.target.classList.add("active");
+    })
+}
+
+function resetActiveStatusOfColorModal(priorityColorArrayOfModal) {
+    for (priorityColor of priorityColorArrayOfModal) {
+        priorityColor.classList.remove("active");
+    }
 }
 
 
@@ -130,11 +147,16 @@ function createTicketWithContentAndActiveColor(modal, priorityColorArrayOfModal)
         for (priorityColor of priorityColorArrayOfModal) {
             if (priorityColor.classList.contains("active")) {
                 selectedColor = priorityColor.classList[1];
+                break;
             }
         }
 
         const id = uid();
         buildTicketWithAllFeatures(writtenContent, selectedColor, true, id);
+
+        textArea.value = "";
+        modal.style.display = "none";
+        resetActiveStatusOfColorModal(priorityColorArrayOfModal);
     });
 }
 
