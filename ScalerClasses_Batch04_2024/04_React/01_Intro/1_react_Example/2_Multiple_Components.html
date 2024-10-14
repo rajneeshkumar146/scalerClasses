@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- algorithm to efficiently manipulate your UI -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+
+    <!-- React DOM  -> uses react to update the DOM-->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- transpiler -> JSX -> into javascript -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Whole application lives here -->
+    <div id="root"></div>
+
+    <!-- Single page application -->
+    <script type="text/babel">
+
+        function HELLO(prop) {
+            let { age, name } = prop
+
+            return <h1>Hello My Name: {name}, and my age: {age}.</h1>
+        }
+
+        function BYE() {
+            return <p>Bye Component</p>
+        }
+
+        // Signifinace -> you can break a problem into multiple smaller parts.
+        // Create -> Parent component using child component.
+        function HELLLO_PARENT() {
+            return <div>
+                <HELLO name={"Sanket"} age={25}></HELLO>
+                <HELLO name={"Anurag"} age={26}></HELLO>
+                <HELLO name={"Shiv Darshan"} age={26}></HELLO>
+                <HELLO name={"Himanshu Sengar"} age={27}></HELLO>
+                <BYE></BYE>
+            </div>
+        }
+
+        // Code Exceution will always start from here.
+        ReactDOM.render(<HELLLO_PARENT />, document.getElementById("root"));
+    </script>
+
+</body>
+
+</html>

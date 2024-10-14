@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React App</title>
+
+    <!-- Adding React and ReactDOM from CDN -->
+    <!-- algorithm to efficiently manipulate your UI -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+
+    <!-- React DOM  -> uses react to update the DOM-->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+</head>
+
+<body>
+    <!-- Very Important to create a root as all the things you will build will go inside the root -->
+    <div id="root"></div>
+
+    <script>
+        // Get the root element where the React app will be mounted
+        const rootElement = document.getElementById('root');
+
+        // Create an element using React.createElement
+        // React.createElement takes at least three arguments:
+        // 1. The tag name of the HTML element to create
+        // 2. The properties of the element (or null if none) Adding null here for now we will discuss props later
+        // 3. The children of this element (or text content)
+        const headingElement = React.createElement('h1', null, 'Hello from React');
+
+        // Render the element to the DOM using ReactDOM
+        // ReactDOM.render takes two arguments:
+        // 1. The React element to render
+        // 2. The DOM element where the React element should be mounted
+        ReactDOM.render(headingElement, rootElement);
+    </script>
+
+</body>
+
+</html>
