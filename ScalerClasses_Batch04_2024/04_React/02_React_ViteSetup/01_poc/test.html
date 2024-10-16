@@ -1,0 +1,102 @@
+# Burhan garari
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- algorithm to efficiently manipulate your UI -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+
+    <!-- React DOM  -> uses react to update the DOM-->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- transpiler -> JSX -> into javascript -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style>
+        .counter {
+            margin-top: 2rem;
+            border-bottom: 2px solid gray;
+            padding-bottom: 1rem;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        // Name: Shubham Yadav
+
+        // Code
+        function USER_INPUT({ inputValue = 0, setInputValue }) {
+            const [value, setValue] = React.useState(inputValue);
+
+            const handleChange = (event) => {
+                setValue(Number(event.target.value));
+            };
+
+            const onButtonClick = (event) => {
+                if (setInputValue) {
+                    setInputValue(value);
+                }
+            };
+
+            return (
+                <div>
+                    <input type="number" id="message" onChange={handleChange} value={value} />
+                    <button onClick={onButtonClick}>Set</button>
+                </div>
+            );
+        }
+
+        function COUNTER({ counterNumber = 1, initValue = 0 }) {
+            const [count, setCount] = React.useState(0);
+
+            React.useEffect(() => {
+                setCount(initValue);
+            }, [initValue]);
+
+            const increment = React.useCallback(() => {
+                setCount((count) => count + 1);
+            });
+
+            const decrement = React.useCallback(() => {
+                setCount((count) => count - 1);
+            });
+
+            return (
+                <div class="counter">
+                    <h2>Counter Number: {counterNumber} </h2>
+                    <button onClick={increment}>+</button>
+                    <p>{count}</p>
+                    <button onClick={decrement}>-</button>
+                </div>
+            );
+        }
+
+        function USER_INPUT_COUNTER() {
+            const [inputValue, setInputValue] = React.useState(0);
+            return (
+                <div>
+                    <USER_INPUT value={inputValue} setInputValue={setInputValue} />
+                    <COUNTER counterNumber={1} initValue={inputValue} />
+                </div>
+            );
+        }
+
+        ReactDOM.render(<USER_INPUT_COUNTER />, document.getElementById("root"));
+
+    </script>
+
+</body>
+
+</html>
