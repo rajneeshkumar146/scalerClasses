@@ -7,15 +7,25 @@ function HandleAllToDo() {
     const [listItems, setListItems] = useState([]);
 
     const addListItem = (listItem) => {
+    
         let newListItems = [...listItems, listItem];
         setListItems(newListItems);
     }
 
+    const handleDeleteListItem = (idxOfItemGetDeleted) => {
+        const filteredListItems = listItems.filter((listItem, cidx) =>
+            cidx != idxOfItemGetDeleted
+        )
+
+        console.log("That item is going to be deleted: ", listItems[idxOfItemGetDeleted])
+        setListItems(filteredListItems);
+    }
+
     return (
         <>
-            <h2>HandleAllToDo</h2>
+            <h2>Handle All Todo</h2>
             <InputBox addListItem={addListItem}></InputBox>
-            <List listItems={listItems}></List>
+            <List listItems={listItems} handleDeleteListItem={handleDeleteListItem}></List>
         </>
     )
 }

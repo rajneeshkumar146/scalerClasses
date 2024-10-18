@@ -1,14 +1,14 @@
 import React from 'react'
 
-function List(listItemsProp) {
-    const { listItems } = listItemsProp;
+function List(listItemsAndEventProp) {
+    const { listItems, handleDeleteListItem } = listItemsAndEventProp;
     return (
         <>
             <div className='list'>
                 <ul>
                     {
                         listItems.map((item, index) => (
-                            <li key={index}> {item}</li>
+                            <li key={index} onClick={() => handleDeleteListItem(index)}> {item}</li>
                         ))
                     }
                 </ul>
