@@ -4,7 +4,10 @@ import { useState } from 'react';
 import basicOps from "./utility/basicOps"
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Categories from './Categories';
+import ProductList from './ProductList';
 
 const ASCENDING_ORDER_SORTING = 1;
 const DESCENDING_ORDER_SORTING = -1;
@@ -18,6 +21,10 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortDirection, setSortDirection] = useState(0);
   const [currCategories, setCurrCategories] = useState("All Categories");
+
+  // const { pageSize, pageNum, setPageSize, setPageNum } = usePaginationContext();
+  const [pageSize, setPageSize] = useState(4);
+  const [pageNum, setPageNum] = useState(1);
 
 
   /********************Getting all the Products *****************/
@@ -40,8 +47,9 @@ function Home() {
     })();
   }, []);
 
-  let modifiedArrayOfProducts = basicOps(products, searchTerm, sortDirection, currCategories);
-
+  let object = basicOps(products, searchTerm, sortDirection, currCategories, pageNum, pageSize);
+  let modifiedArrayOfProducts = object.modifiedArray != null ? object.modifiedArray : [];
+  let totalPages = object.totalPages;
 
   return (
     <>
@@ -65,9 +73,9 @@ function Home() {
         </div>
 
         <div className='categories_wrapper'>
-          <Categories 
-             categories = {categories}
-             setCurrCategories = {setCurrCategories}
+          <Categories
+            categories={categories}
+            setCurrCategories={setCurrCategories}
           >
           </Categories>
         </div>
@@ -75,25 +83,37 @@ function Home() {
       </header>
 
       <main className='product_wrapper'>
-        {
-          modifiedArrayOfProducts === null ? <h3>....Loading</h3> :
-            <>
-              {
-                modifiedArrayOfProducts.map((product) => {
-                  return (
-                    <div className='product'>
-                      <img src={product.image} alt="" className='product_image'></img>
-                      <div className='product_meta'>
-                        <p className='product_title'>Title: {product.title}</p>
-                        <p className='price'>Price: {product.price}</p>
-                      </div>
-                    </div>
-                  );
-                })
-              }
-            </>
-        }
+        <ProductList productList={modifiedArrayOfProducts} />
       </main>
+
+      <div className='pagination'>
+
+        <button onClick={() => {
+          if (pageNum === 1) {
+            return;
+          }
+          setPageNum((pageNum) => pageNum - 1);
+        }}
+          disabled={pageNum === 1 ? true : false}
+        >
+          <KeyboardArrowLeftIcon fontSize='large'></KeyboardArrowLeftIcon>
+        </button>
+
+        <div className='pageNum'>{pageNum}</div>
+
+        <button onClick={() => {
+          if (pageNum === totalPages) {
+            return;
+          }
+
+          setPageNum((pageNum) => pageNum + 1);
+        }}
+          disabled={pageNum === totalPages ? true : false}
+        >
+          <KeyboardArrowRightIcon fontSize='large'></KeyboardArrowRightIcon>
+        </button>
+
+      </div>
     </>
   )
 }
