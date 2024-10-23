@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import basicOps from "./utility/basicOps"
 
 function Home() {
 
@@ -17,15 +18,7 @@ function Home() {
     })();
   }, []);
 
-  let filteredArr = products;
-  if (searchTerm != "") {
-    filteredArr = products.filter(product => {
-      let lowerSearchTerm = searchTerm.toLowerCase();
-      let lowerCaseTitle = product.title.toLowerCase();
-
-      return lowerCaseTitle.includes(lowerSearchTerm);
-    });
-  }
+  let modifiedArrayOfProducts = basicOps(products, searchTerm);
 
 
   return (
@@ -39,10 +32,10 @@ function Home() {
 
       <main className='product_wrapper'>
         {
-          filteredArr === null ? <h3>....Loading</h3> :
+          modifiedArrayOfProducts === null ? <h3>....Loading</h3> :
             <>
               {
-                filteredArr.map((product) => {
+                modifiedArrayOfProducts.map((product) => {
                   return (
                     <div className='product'>
                       <img src={product.image} alt="" className='product_image'></img>
