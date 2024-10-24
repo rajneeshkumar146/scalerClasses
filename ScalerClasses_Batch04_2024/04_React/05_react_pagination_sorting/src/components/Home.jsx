@@ -53,7 +53,6 @@ function Home() {
 
   return (
     <>
-
       <header className='nav_wrapper'>
         <div className='search_sortWrapper'>
 
