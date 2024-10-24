@@ -1,27 +1,32 @@
 import React from 'react'
+import { useState } from 'react';
 import Article from './Article'
 import Footer from './Footer'
 import Header from './Header'
 
 //1
-const ThemeWrapper = React.createContext();
+export const ThemeWrapper = React.createContext();
 
 function ThemeManager() {
     // 2 -> wrap your entire application and add your value.
+    const [currTheme, setCurrTheme] = useState("light");
+    const toggleTheme = () => {
+        const newTheme = currTheme.localeCompare("light") === 0 ? "dark" : "light";
+        setCurrTheme(newTheme);
+    }
+
     return (
-        <div>
+        <ThemeWrapper.Provider value={{ currTheme }}>
             <h1>Theme Manager</h1>
             <button
-                onClick={() => {
-                    console.log("Toggle color to white->balck->white...")
-                }}
+                onClick={toggleTheme}
             >
                 Toggle Theme
             </button>
             <Header />
             <Footer />
             <Article />
-        </div>
+        </ThemeWrapper.Provider>
     )
 }
 

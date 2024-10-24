@@ -8,9 +8,9 @@ import ThemeManager from './poc/themes/ThemeManager.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      {/* <App /> */}
+      <App />
       {/* <Context /> */}
-      <ThemeManager />
+      {/* <ThemeManager /> */}
     </BrowserRouter>
   </StrictMode>,
 )

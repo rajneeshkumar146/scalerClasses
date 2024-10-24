@@ -7,10 +7,11 @@ import ProductDetails from './components/ProductDetails';
 import "./App.css";
 import User from './components/User';
 import Cart from './components/User';
+import PaginationProvider from './components/contexts/PaginationContext';
 
 function App() {
   return (
-    <>
+    <PaginationProvider>
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home />}></Route>
@@ -21,8 +22,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
-
-    </>
+    </PaginationProvider>
   );
 }
 

@@ -8,6 +8,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Categories from './Categories';
 import ProductList from './ProductList';
+import { usePaginationContext } from './contexts/PaginationContext';
 
 const ASCENDING_ORDER_SORTING = 1;
 const DESCENDING_ORDER_SORTING = -1;
@@ -22,9 +23,7 @@ function Home() {
   const [sortDirection, setSortDirection] = useState(0);
   const [currCategories, setCurrCategories] = useState("All Categories");
 
-  // const { pageSize, pageNum, setPageSize, setPageNum } = usePaginationContext();
-  const [pageSize, setPageSize] = useState(4);
-  const [pageNum, setPageNum] = useState(1);
+  const { pageSize, pageNum, setPageSize, setPageNum } = usePaginationContext();
 
 
   /********************Getting all the Products *****************/
@@ -58,15 +57,18 @@ function Home() {
 
           <input className='search_input' type="text" value={searchTerm} onChange={(event) => {
             setSearchTerm(event.target.value);
+            setPageNum(1);
           }}></input>
 
           <div className='icon_container'>
             <ArrowCircleUpIcon style={{ color: "white" }} fontSize="large" onClick={() => {
               setSortDirection(ASCENDING_ORDER_SORTING);
+              setPageNum(1);
             }} />
 
             <ArrowCircleDownIcon style={{ color: "white" }} fontSize="large" onClick={() => {
               setSortDirection(DESCENDING_ORDER_SORTING);
+              setPageNum(1);
             }} />
           </div>
         </div>
