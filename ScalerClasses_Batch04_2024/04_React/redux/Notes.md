@@ -45,3 +45,10 @@ Setup:
   npm run dev
 
 6. npm install react-redux @reduxjs/toolkit
+
+
+Flow:
+1. Create slice.
+2. Create Store and configure with slice.
+3. Creare Component and configure it with useSelector(), useDispatcher() hooks and to perform actions use slice.actions.
+4. configure your whole application with provide with store. 
