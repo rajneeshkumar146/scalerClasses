@@ -2,6 +2,7 @@
 2. https://react-redux.js.org/introduction/why-use-react-redux
 3. https://redux.js.org/usage/writing-logic-thunks
 4. https://www.freecodecamp.org/news/how-to-work-with-redux-thunk/
+5. https://redux-toolkit.js.org/api/getDefaultMiddleware
 
 1. React Components :
     1. State Managment.
