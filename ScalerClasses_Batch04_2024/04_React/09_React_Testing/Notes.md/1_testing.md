@@ -22,3 +22,10 @@
 1. Arrange.
 2. Act -> run your app in a kind of virtual/real environment.
 3. assert your expectation. 
+
+## snapshot testing
+
+# Explanation: A snapshot test captures the current state of a React component's rendered output. It takes a snapshot of the component's markup and compares it to the stored snapshot. If there are unintended changes, the test fails, highlighting potential issues with the component's visual representation.
+
+# Use Case: Verifying that the rendered output of a component remains consistent over time, helping detect unexpected changes.
+    
