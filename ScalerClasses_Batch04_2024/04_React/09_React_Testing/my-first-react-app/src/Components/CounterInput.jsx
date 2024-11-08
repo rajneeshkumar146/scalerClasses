@@ -18,7 +18,7 @@ function InputCounter() {
     return (
         <div className="container">
             <div className="container">
-                <input type="text" value={value} onChange={updateInput} />
+                <input type="number" value={value} onChange={updateInput} />
                 <button onClick={resetCounter}>Reset</button>
             </div>
             <br />
@@ -30,4 +30,16 @@ function InputCounter() {
         </div>
     )
 }
+
+
+/**
+ * Testing.
+ * 0. Intial State of app.
+ * 1. Input value is always a number.
+ * 2. Input value can be -ve/+ve.
+ * 3. Count increment 2 times.
+ * 4. Count decrement 2 times.
+ * 5. Reset count.
+ * 6. Snapshot of app.
+ */
 export default InputCounter
