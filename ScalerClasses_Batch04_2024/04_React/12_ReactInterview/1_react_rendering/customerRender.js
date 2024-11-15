@@ -34,7 +34,7 @@ const obj =
         class: "container",
         children: [
             {
-                type: 'h1', 
+                type: 'h1',
                 props: {
                     children: ' this is '
                 }
@@ -60,35 +60,43 @@ const obj =
     }
 }
 
-function render(obj){
+function render(obj) {
     let element;
-    if(typeof obj.type === "string"){
+    if (typeof obj.type === "string") {
         element = document.createElement(obj.type);
-    }else if(typeof obj.type === "function"){
-        
+    } else if (typeof obj.type === "function") {
+        const prop = obj['props'];
+        let elementObj = obj.type(prop);
+        return render(elementObj);
     }
 
     const props = obj.props;
-    for(let prop in props){
-        if(prop === "children"){
-            const children  = props[prop];
+    for (let prop in props) {
+        if (prop === "children") {
+            const children = props[prop];
             let isArray = Array.isArray(children);
-            if(isArray){
-
-
-            }else{
+            if (isArray) {
+                for (let i = 0; i < children.length; i++) {
+                    let child = children[i];
+                    if (typeof child === "string") {
+                        const textNode = document.createTextNode(child);
+                        element.appendChild(textNode);
+                    }else{
+                        const childElem = render(child);
+                        element.appendChild(childElem);
+                    }
+                }
+            } else {
                 const childElem = document.createTextNode(props[prop]);
                 element.appendChild(childElem);
             }
-
-
-
-        }else if(typeof props[prop] === "string"){
+        } else if (typeof props[prop] === "string") {
             element.setAttribute(prop, props[prop])
 
         }
     }
 
+    return element;
 }
 
 
