@@ -21,8 +21,10 @@
  *        -> children:
  *                   -> Array
  *                   -> can have values as string
- *                   -> can have values as function: custom element
- *                   -> can have object: normal element 
+ * 
+ * 
+ *                   -> can have values as function: custom element(forget it)
+ *                   -> can have object: normal element(forget it)
  */
 
 const obj =
@@ -32,7 +34,8 @@ const obj =
         class: "container",
         children: [
             {
-                type: 'h1', props: {
+                type: 'h1', 
+                props: {
                     children: ' this is '
                 }
             },
@@ -58,6 +61,33 @@ const obj =
 }
 
 function render(obj){
+    let element;
+    if(typeof obj.type === "string"){
+        element = document.createElement(obj.type);
+    }else if(typeof obj.type === "function"){
+        
+    }
+
+    const props = obj.props;
+    for(let prop in props){
+        if(prop === "children"){
+            const children  = props[prop];
+            let isArray = Array.isArray(children);
+            if(isArray){
+
+
+            }else{
+                const childElem = document.createTextNode(props[prop]);
+                element.appendChild(childElem);
+            }
+
+
+
+        }else if(typeof props[prop] === "string"){
+            element.setAttribute(prop, props[prop])
+
+        }
+    }
 
 }
 
