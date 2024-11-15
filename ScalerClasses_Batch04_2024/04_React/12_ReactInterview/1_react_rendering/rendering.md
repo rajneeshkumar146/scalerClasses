@@ -20,3 +20,6 @@ Searlize version of my react program is JSON object and there must be a desriali
 
 3. Upadte the real DOM.
 * It will be using those minimum set of chnages and with those changes it is going to update real DOM.
+
+
+link: https://docs.google.com/document/d/1h1RvWNmus25zzmthot13RHBK0BNGtxBlVff3mMQhD0c/edit?tab=t.0
