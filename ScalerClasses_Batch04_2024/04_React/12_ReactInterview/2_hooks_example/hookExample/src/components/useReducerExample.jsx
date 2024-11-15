@@ -7,10 +7,21 @@ function Form() {
         lastName: ""
     }
 
-    const reducer = () => {
-        // switch () {
+    const reducer = (state, action) => {
+        switch (action.type) {
+            case "firstNameInput":
+                return { firstName: action.payload }
+            case "lastNameInput":
+                return { lastName: action.payload }
+            case "clear":
+                return {
+                    firstName: "",
+                    lastName: ""
+                }
+            default:
+                return state;
 
-        // }
+        }
     }
 
     const [formState, dispatch] = useReducer(reducer, intitialState);
