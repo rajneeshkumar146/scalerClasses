@@ -33,7 +33,7 @@ const users = [
 ];
 
 // Base Url: http://localhost:3000/users
-app.post("/users", (req, res)=>{
+app.post("/users", (req, res) => {
     const newUser = req.body;
 
 
@@ -45,25 +45,54 @@ app.post("/users", (req, res)=>{
     users.push(newUser);
 
     // send the status code.
-    res.status(200).json({message: "User Created", user: newUser});
+    res.status(200).json({ message: "User Created", user: newUser });
 
     console.log("Print all Users: ", users);
 });
 
 // Base Url: http://localhost:3000/payment
 const userDb = [];
-const notAllowList = ["R", "r"];
-app.post('/payment', (req, res)=> {
+const notAllowList = ["t", "T", "R"];
+app.post('/payment', (req, res) => {
+    const paymentBody = req.body;
+    let isValidUser = notAllowList.some(indentifier => paymentBody.user.startsWith(indentifier));
 
-
+    if (isValidUser) {
+        res.status(400).json({ Message: "Invalid user" });
+    } else {
+        userDb.push(paymentBody);
+        res.status(200).json({ message: "Valid user, User is saved" });
+    }
 
     console.log("Pritn all users: ", userDb);
-})
+});
 
+// Base Url: http://localhost:3000/users/1
+app.delete("/users/:id", (req, res) => {
+    const userId = parseInt(req.params.id);
 
+    // find the user with id.
+    const userIndex = users.findIndex((user) => user.id === userId);
+    if (userIndex === -1) {
+        return res.status(404).json({ message: "user not found" });
+    }
 
+    users.splice(userIndex, 1);
+    res.status(200).json({ message: "user deleted" })
 
+    console.log("Print all Users: ", users)
+});
 
+const loggerMiddleware = (req, res, next)=> {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next(); // call the next middleware.
+}
+
+// Base Url: http://localhost:3000/special
+app.get("/special", loggerMiddleware, (req, res)=> {
+    res.send("this is a special route");
+    // console output: [2024-11-27T17:27:47.057Z] GET /special
+});
 
 // start the server
 const port = 3000;
