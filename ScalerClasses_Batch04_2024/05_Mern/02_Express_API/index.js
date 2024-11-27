@@ -83,13 +83,18 @@ app.delete("/users/:id", (req, res) => {
     console.log("Print all Users: ", users)
 });
 
-const loggerMiddleware = (req, res, next)=> {
+const loggerMiddleware = (req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     next(); // call the next middleware.
 }
 
+const loggerMiddleware_ = (req, res, next) => {
+    console.log("Rajneesh: " + `[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next(); // call the next middleware.
+}
+
 // Base Url: http://localhost:3000/special
-app.get("/special", loggerMiddleware, (req, res)=> {
+app.get("/special", loggerMiddleware,loggerMiddleware_, (req, res) => {
     res.send("this is a special route");
     // console output: [2024-11-27T17:27:47.057Z] GET /special
 });
