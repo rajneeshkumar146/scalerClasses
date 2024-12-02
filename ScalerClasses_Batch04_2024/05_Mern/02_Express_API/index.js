@@ -29,7 +29,8 @@ app.post("/data", (req, res) => {
 
 const users = [
     { id: 1, name: "Sheela" },
-    { id: 2, name: "Annu" }
+    { id: 2, name: "Annu" },
+    { id: 3, name: "Rajneesh" }
 ];
 
 // Base Url: http://localhost:3000/users
@@ -83,21 +84,34 @@ app.delete("/users/:id", (req, res) => {
     console.log("Print all Users: ", users)
 });
 
-const loggerMiddleware = (req, res, next) => {
+const loggerMiddleware_logging = (req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    // res.send("Request is logged and don't call next middleware");  // some condition.
     next(); // call the next middleware.
 }
 
-const loggerMiddleware_ = (req, res, next) => {
-    console.log("Rajneesh: " + `[${new Date().toISOString()}] ${req.method} ${req.url}`);
+const loggerMiddleware_validation = (req, res, next) => {
+    console.log("Validation process begins: " + `[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    // res.send("Request is not Validated and don't call next middleware");  // some condition.
     next(); // call the next middleware.
 }
 
 // Base Url: http://localhost:3000/special
-app.get("/special", loggerMiddleware,loggerMiddleware_, (req, res) => {
-    res.send("this is a special route");
-    // console output: [2024-11-27T17:27:47.057Z] GET /special
+app.get("/special", loggerMiddleware_logging,loggerMiddleware_validation, (req, res) => {
+    res.send("Welcome to special route");
 });
+
+// Base Url: http://localhost:3000/search?name="Rajneesh"
+app.get("/search", (req, res) => {
+    const queryParam = req.query;
+    console.log("Name: ", queryParam);
+    res.send(`Your parameter are ${JSON.stringify(queryParam)}`)
+});
+
+app.use((req,res) => {
+    res.status(404).send("Page Not Found!!!");
+});
+
 
 // start the server
 const port = 3000;
