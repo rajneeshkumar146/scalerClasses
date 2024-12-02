@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema({
         required: true,
     },
     category: {
-        type: String,
+        type: [String],
         required: true,
     },
     password: {
@@ -44,6 +44,24 @@ const productSchema = new mongoose.Schema({
         }
     }
 });
+
+const validCategories = ["electronics", "fashion", "appliances", "furniture"];
+productSchema.pre("save", function(next){
+    console.log("Pre save hook.", this.category);
+    const invalidCateories = this.category.filter((cat) =>  validCategories.includes(cat));
+
+    console.log("Test: ", invalidCateories);
+    if (invalidCateories.length === 0) {
+        return next(new Error(`Invalid category ${invalidCateories.join(",")}`));
+    } else {
+        next();
+    }
+});
+
+productSchema.pre("save", function () {
+    this.confirmPassword = undefined;
+});
+
 
 const productModel = mongoose.model("Products", productSchema);
 module.exports = productModel;
