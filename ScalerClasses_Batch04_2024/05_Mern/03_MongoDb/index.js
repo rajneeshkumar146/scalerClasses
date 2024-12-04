@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 
 // Important links and URL.
-const DB_URL = "mongodb+srv://rajneeshkumar146:DKOhz0HnSwt1fjMS@cluster0.wjpxi.mongodb.net/";
+const DB_URL = "";
 
 // Constants
 const PORT = 3000;
