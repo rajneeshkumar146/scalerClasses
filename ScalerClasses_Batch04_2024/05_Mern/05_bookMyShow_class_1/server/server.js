@@ -15,8 +15,19 @@ app.use(express.json()); // Middleware
 const connectDb = require("./config/db");
 connectDb(); // Stablish database connection.
 
+// Global Variables
+const USER_ROUTER = require("./routes/userRouter");
 
+// Routes.
+app.use("/api/users", USER_ROUTER);
 
+app.get("/", (req, res) =>
+    res.status(201).send("Welcome to the home page.")
+);
+
+app.use((req, res) =>
+    res.status(404).json({ message: "page not found" })
+);
 
 // Start the server.
 app.listen(PORT, () => {
