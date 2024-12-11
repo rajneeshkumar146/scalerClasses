@@ -13,7 +13,7 @@ movieRouter.post("/delete-movie", deleteMovie);
 
 // GET
 movieRouter.get("/get-all-movies", getAllMovies);
-movieRouter.get("/movie/:id", getMovieById);
+movieRouter.get("/get-movie/:id", getMovieById);
 
 //PUT
 movieRouter.put("/update-movie", updateMovie);
