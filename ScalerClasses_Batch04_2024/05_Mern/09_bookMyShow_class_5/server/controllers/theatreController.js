@@ -1,7 +1,7 @@
 const Theatre = require("../model/theatreModel");
 
 // POST
-const addTheatre = async () => {
+const addTheatre = async (req, res) => {
     try {
         const newTheatre = new Theatre(req.body);
         await newTheatre.save();
@@ -15,7 +15,7 @@ const addTheatre = async () => {
 }
 
 // PUT
-const updateTheatre = async () => {
+const updateTheatre = async (req, res) => {
     try {
         await Theatre.findByIdAndUpdate(req.body.theatreId, req.body);
         res.send({
@@ -31,7 +31,7 @@ const updateTheatre = async () => {
 }
 
 // DELETE
-const deleteTheatre = async () => {
+const deleteTheatre = async (req, res) => {
     try {
         console.log("deleting theatre", req.params.theatreId);
         await Theatre.findByIdAndDelete(req.params.theatreId);
@@ -46,7 +46,7 @@ const deleteTheatre = async () => {
 }
 
 // GET
-const getAllTheatre = async () => {
+const getAllTheatre = async (req, res) => {
     try {
         const allTheatres = await Theatre.find().populate("owner");
         console.log("Read all theatres", allTheatres);
@@ -64,7 +64,7 @@ const getAllTheatre = async () => {
 
 }
 
-const getTheatreByOwner = async () => {
+const getTheatreByOwner = async (req, res) => {
     try {
         const allTheatres = await Theatre.find({ owner: req.params.ownerId });
         res.send({
@@ -78,7 +78,6 @@ const getTheatreByOwner = async () => {
             message: "Error from theatre controller" + err.message,
         });
     }
-
 }
 
 module.exports = { addTheatre, updateTheatre, deleteTheatre, getAllTheatre, getTheatreByOwner };

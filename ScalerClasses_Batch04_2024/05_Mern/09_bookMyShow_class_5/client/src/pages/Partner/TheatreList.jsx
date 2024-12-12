@@ -18,7 +18,32 @@ function TheatreList() {
   const [isShowModalOpen, setIsShowModalOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const getData = async () => { }
+  const getData = async () => {
+    try {
+      dispatch(ShowLoading());
+      const response = await getAllTheatres(user._id);
+
+      if (response.success) {
+        const alltheatres = response.data;
+        setTheatres(
+          alltheatres.map(function (theatre) {
+            return { ...theatre, key: `theatre${theatre._id}` };
+          })
+        );
+
+        setTheatres(response.data);
+
+      } else {
+        message.error(response.message);
+      }
+
+
+    } catch (err) {
+      console.log("Error from theatre list: ", err);
+      dispatch(HideLoading());
+    }
+
+  }
 
   useEffect(() => {
     getData();
@@ -98,8 +123,52 @@ function TheatreList() {
   ];
 
   return (
-    <div>TheatreList</div>
-  )
+    <>
+      <div className="d-flex justify-content-end">
+        <Button
+          type="primary"
+          onClick={() => {
+            setIsModalOpen(true); // isModalOpen = true
+            setFormType("add");
+          }}
+        >
+          Add Theatre
+        </Button>
+      </div>
+
+      <Table dataSource={theatres} columns={columns} />
+
+      {isModalOpen && (
+        <TheatreFormModal
+          isModalOpen={isModalOpen}
+          selectedTheatre={selectedTheatre}
+          setSelectedTheatre={setSelectedTheatre}
+          setIsModalOpen={setIsModalOpen}
+          formType={formType}
+          getData={getData}
+        />
+      )}
+
+      {isDeleteModalOpen && (
+        <DeleteTheatreModal
+          isDeleteModalOpen={isDeleteModalOpen}
+          selectedTheatre={selectedTheatre}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+          setSelectedTheatre={setSelectedTheatre}
+          getData={getData}
+        />
+      )}
+
+      {isShowModalOpen && (
+        <ShowModal
+          isShowModalOpen={isShowModalOpen}
+          setIsShowModalOpen={setIsShowModalOpen}
+          selectedTheatre={selectedTheatre}
+        />
+      )}
+
+    </>
+  );
 }
 
 export default TheatreList

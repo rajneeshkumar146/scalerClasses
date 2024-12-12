@@ -18,11 +18,39 @@ const TheatreForm = ({
 
 
     const onFinish = async (values) => {
+        try {
+            dispatch(ShowLoading());
 
+            let response = null;
+
+            if (formType === "add") {
+                response = await addTheatre({...values, owner: user._id});
+            } else {
+                values.theatreId = selectedTheatre._id;
+                response = await updateTheatre(values);
+            }
+
+            if (response.success) {
+
+                getData();
+                message.success(response.message);
+
+                setIsModalOpen(false);
+            } else {
+                message.error(response.message);
+            }
+
+            setSelectedTheatre(null);
+            dispatch(HideLoading());
+        } catch (err) {
+            dispatch(HideLoading());
+            message.error(err.message);
+        }
     }
 
     const handleCancel = () => {
-
+        setIsModalOpen(false);
+        setSelectedTheatre(null);
     }
 
     return (
