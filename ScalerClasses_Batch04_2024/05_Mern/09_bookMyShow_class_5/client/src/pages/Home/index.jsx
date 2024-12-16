@@ -9,14 +9,17 @@ import moment from "moment";
 
 function Home() {
 
+  const [movies, setMovies] = useState(null);
+  const [searchText, setSearchText] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const getData = async () => {
     try {
       dispatch(ShowLoading());
-
-      const response = null;
-
+      const response = await getAllMovies();
       if (response.success) {
-
+        setMovies(response.data);
       } else {
         message.error(response.message);
       }
@@ -32,7 +35,7 @@ function Home() {
   }, []);
 
   const handleSearch = (event) => {
-
+    setSearchText(event.target.value);
   }
 
   return (
