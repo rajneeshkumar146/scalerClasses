@@ -26,7 +26,7 @@ export const getShowsByTheatre = async (payload) => {
     );
     return response.data;
   } catch (err) {
-    console.log(err);
+    console.log("get Show by theatre is not called: ", err);
   }
 };
 

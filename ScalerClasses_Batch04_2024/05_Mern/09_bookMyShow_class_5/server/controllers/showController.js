@@ -12,7 +12,7 @@ const addShow = async (req, res) => {
     } catch (err) {
         res.status(500).send({
             success: false,
-            message: "Error from theatre controller" + err.message,
+            message: "Failed to add show",
         });
     }
 }
