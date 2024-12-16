@@ -40,13 +40,41 @@ const ShowModal = ({
   const [selectedShow, setSelectedShow] = useState(null);
   const dispatch = useDispatch();
 
-  const getData = async () => { }
+  const getData = async () => {
+    try {
+      dispatch(ShowLoading());
+      const movieResponse = await getAllMovies();
+      if (movieResponse.success) {
+        setMovies(movieResponse.data);
+      } else {
+        message.error(movieResponse.message);
+      }
 
-  const onFinish = async (values) => { }
+      const showResponse = await getShowsByTheatre({
+        theatreId: selectedTheatre._id,
+      });
+      if (showResponse.success) {
+        setShows(showResponse.data);
+      } else {
+        message.error(showResponse.message);
+      }
 
-  const handleCancel = () => { }
+      dispatch(HideLoading());
+    } catch (err) {
+      message.error(err.message);
+      dispatch(HideLoading());
+    }
+  }
 
-  const handleDelete = async (showId) => { }
+  const onFinish = async (values) => {
+
+   }
+
+  const handleCancel = () => { setIsShowModalOpen(false); }
+
+  const handleDelete = async (showId) => {
+    
+   }
 
   const columns = [
     {
