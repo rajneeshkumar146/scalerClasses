@@ -19,11 +19,13 @@ connectDb(); // Stablish database connection.
 const USER_ROUTER = require("./routes/userRouter");
 const MOVIE_ROUTER = require("./routes/movieRoute");
 const THEATER_ROUTER = require("./routes/theatreRoute");
+const SHOW_ROUTER = require("./routes/showRoute");
 
 // Routes.
 app.use("/api/users", USER_ROUTER);
 app.use("/api/movies", MOVIE_ROUTER);
 app.use("/api/theatres", THEATER_ROUTER);
+app.use("/api/shows", SHOW_ROUTER);
 
 app.get("/", (req, res) =>
     res.status(201).send("Welcome to the home page.")
