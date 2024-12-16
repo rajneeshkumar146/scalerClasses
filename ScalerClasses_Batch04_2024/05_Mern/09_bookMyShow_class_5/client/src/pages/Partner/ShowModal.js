@@ -67,14 +67,53 @@ const ShowModal = ({
   }
 
   const onFinish = async (values) => {
-
-   }
+    try {
+      dispatch(ShowLoading());
+      let response = null;
+      if (view === "form") {
+        // type === "add"
+        response = await addShow({ ...values, theatre: selectedTheatre._id });
+      } else {
+        // console.log(view, selectedTheatre, selectedTheatre._id);
+        response = await updateShow({
+          ...values,
+          showId: selectedShow._id,
+          theatre: selectedTheatre._id,
+        });
+      }
+      if (response.success) {
+        getData();
+        message.success(response.message);
+        setView("table");
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (err) {
+      message.error(err.message);
+      dispatch(HideLoading());
+    }
+  }
 
   const handleCancel = () => { setIsShowModalOpen(false); }
 
   const handleDelete = async (showId) => {
-    
-   }
+    try {
+      dispatch(ShowLoading());
+      const response = await deleteShow({ showId: showId });
+      if (response.success) {
+        message.success(response.message);
+        getData();
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (err) {
+      message.error(err.message);
+      dispatch(HideLoading());
+    }
+
+  }
 
   const columns = [
     {
