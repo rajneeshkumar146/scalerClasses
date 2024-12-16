@@ -1,15 +1,52 @@
-import { Table } from "antd";
-import React from "react";
+import {
+  Col,
+  Modal,
+  Row,
+  Form,
+  Input,
+  Button,
+  Select,
+  Table,
+  message,
+} from "antd";
+import { ShowLoading, HideLoading } from "../../redux/loaderSlice";
+import { useDispatch } from "react-redux";
+// import { addTheatre, updateTheatre } from '../../apicalls/theatres';
+import {
+  ArrowLeftOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
+import { useEffect, useState } from "react";
+// import { useSelector } from 'react-redux';
+import { getAllMovies } from "../../api/movie";
+import {
+  addShow,
+  deleteShow,
+  getShowsByTheatre,
+  updateShow,
+} from "../../api/shows";
+import moment from "moment";
 
-function ShowModal() {
+const ShowModal = ({
+  isShowModalOpen,
+  setIsShowModalOpen,
+  selectedTheatre,
+}) => {
+  const [view, setView] = useState("table");
+  const [movies, setMovies] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [shows, setShows] = useState(null);
+  const [selectedShow, setSelectedShow] = useState(null);
+  const dispatch = useDispatch();
 
-  const getData = async () => {}
+  const getData = async () => { }
 
-  const onFinish = async (values) => {}
+  const onFinish = async (values) => { }
 
-  const handleCancel = () => {}
+  const handleCancel = () => { }
 
-  const handleDelete = async (showId) => {}
+  const handleDelete = async (showId) => { }
 
   const columns = [
     {
