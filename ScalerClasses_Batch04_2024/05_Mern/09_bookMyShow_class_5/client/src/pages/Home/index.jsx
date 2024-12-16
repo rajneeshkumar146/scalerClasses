@@ -10,7 +10,21 @@ import moment from "moment";
 function Home() {
 
   const getData = async () => {
+    try {
+      dispatch(ShowLoading());
 
+      const response = null;
+
+      if (response.success) {
+
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (err) {
+      message.error(err.message);
+      dispatch(HideLoading());
+    }
   }
 
   useEffect(() => {
@@ -35,7 +49,7 @@ function Home() {
           <br />
         </Col>
       </Row>
-      
+
       <Row
         className="justify-content-center"
         gutter={{
