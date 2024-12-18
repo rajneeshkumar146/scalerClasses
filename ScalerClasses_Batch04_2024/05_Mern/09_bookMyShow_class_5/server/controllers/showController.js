@@ -88,7 +88,7 @@ const getAllTheathresByMovie = async (req, res) => {
     try {
 
         const { movie, date } = req.body;
-        const shows = await Show.find({ movie, date }).populate("theathre");
+        const shows = await Show.find({ movie, date }).populate("theatre");
         // Filter out the unique theatre.
         const uniqueTheatres = [];
         shows.forEach((show) => {

@@ -14,7 +14,7 @@ const showSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        movies: {
+        movie: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "movies",
             required: true,
