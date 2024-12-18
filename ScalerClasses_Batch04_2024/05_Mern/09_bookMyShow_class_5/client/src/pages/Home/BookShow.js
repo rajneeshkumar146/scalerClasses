@@ -6,6 +6,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { message, Card, Row, Col, Button } from "antd";
 import moment from "moment";
 
+import StripeCheckout from "react-stripe-checkout";
+import { bookShow, makePayment } from "../../api/booking";
+
 
 const BookShow = () => {
     const params = useParams(); // Extracting URL parameters
@@ -45,11 +48,11 @@ const BookShow = () => {
         return (
             <div className="d-flex flex-column align-items-center">
                 <div className="w-100 max-width-600 mx-auto mb-25px">
-                   
+
                     <p className="text-center mb-10px">
                         Screen this side, you will be watching in this direction
                     </p>
-                   
+
                     <div className="screen-div">
                         {/* Placeholder for screen display */}
                     </div>
@@ -60,12 +63,53 @@ const BookShow = () => {
                     style={{ marginLeft: "25%" }}
                 >
 
-                    {/*  write some logic */}
+                    {Array.from(Array(rows).keys()).map((row) =>
+                        // Mapping rows
+                        Array.from(Array(columns).keys()).map((column) => {
+                            let seatNumber = row * columns + column + 1; // Calculating seat number
+
+                            let seatClass = "seat-btn"; // Default class for seat button
+
+                            if (selectedSeats.includes(seatNumber)) {
+                                seatClass += " selected"; // Adding 'selected' class if seat is selected
+                            }
+
+                            if (show.bookedSeats.includes(seatNumber)) {
+                                seatClass += " booked"; // Adding 'booked' class if seat is already booked
+                            }
+
+                            if (seatNumber <= totalSeats) {
+                                // Rendering seat button if seat number is valid
+                                return (
+                                    <li key={seatNumber}>
+                                        {/* Key added for React list rendering optimization */}
+                                        <button
+                                            className={seatClass}
+                                            onClick={() => {
+                                                // Function to handle seat selection/deselection
+                                                if (selectedSeats.includes(seatNumber)) {
+                                                    setSelectedSeats(
+                                                        selectedSeats.filter(
+                                                            (curSeatNumber) => curSeatNumber !== seatNumber
+                                                        )
+                                                    );
+                                                } else {
+                                                    setSelectedSeats([...selectedSeats, seatNumber]);
+                                                }
+                                            }}
+                                        >
+                                            {seatNumber}
+                                        </button>
+                                    </li>
+                                );
+                            }
+                        })
+                    )}
 
                 </ul>
                 <div className="d-flex bottom-card justify-content-between w-100 max-width-600
         mx-auto mb-25px mt-3">
-                    
+
                     <div className="flex-1">
                         Selected Seats: <span>{selectedSeats.join(", ")}</span>
                     </div>
@@ -74,7 +118,7 @@ const BookShow = () => {
                         Total Price:{" "}
                         <span>Rs. {selectedSeats.length * show.ticketPrice}</span>
                     </div>
-                    
+
                 </div>
             </div>
         );
@@ -86,6 +130,44 @@ const BookShow = () => {
     useEffect(() => {
         getData();
     }, []);
+
+    const onToken = async (token) => {
+        console.log("token from stripe", token);
+        dispatch(ShowLoading());
+        const response = await makePayment(
+            token,
+            selectedSeats.length * show.ticketPrice
+        );
+        if (response.success) {
+            message.success(response.message);
+            book(response.data);
+            console.log(response);
+        } else {
+            message.error(response.message);
+        }
+        dispatch(HideLoading());
+    };
+
+    const book = async (transactionId) => {
+        try {
+            dispatch(ShowLoading());
+            const response = await bookShow({
+                show: params.id,
+                transactionId,
+                seats: selectedSeats,
+                user: user._id,
+            });
+            if (response.success) {
+                message.success(response.message);
+                navigate("/profile");
+            } else {
+                message.error(response.message);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
 
     // JSX rendering
     return (
@@ -142,8 +224,6 @@ const BookShow = () => {
                                     </div>
                                 </StripeCheckout>
                             )}
-
-
                         </Card>
                     </Col>
                 </Row>

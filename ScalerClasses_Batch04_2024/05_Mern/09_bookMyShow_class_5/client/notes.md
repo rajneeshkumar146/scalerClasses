@@ -6,6 +6,7 @@
 5. npm install @reduxjs/toolkit
 6. npm install react-redux
 7. npm install moment
+8. npm i react-stripe-checkout
 
 
 ## If you face issue of incorrect host api call:

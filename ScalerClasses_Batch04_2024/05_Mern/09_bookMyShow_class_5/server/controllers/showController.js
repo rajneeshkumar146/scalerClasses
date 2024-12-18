@@ -97,7 +97,7 @@ const getAllTheathresByMovie = async (req, res) => {
             if (!isTheatreAlreadyPresentInMap) {
                 const showOfThisTheatre = shows.filter((showObj) => showObj.theatre._id === show.theatre._id);
 
-                uniqueTheatres.push({ ...shows.theatre._doc, shows: showOfThisTheatre });
+                uniqueTheatres.push({ ...show.theatre._doc, shows: showOfThisTheatre });
             }
 
             // uniqueTheatres -> [{theatre1, shows: [show1, show2]}, {theatre2, shows: [show1, show2]}]
