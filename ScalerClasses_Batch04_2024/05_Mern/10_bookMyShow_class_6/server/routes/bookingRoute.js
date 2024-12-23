@@ -3,6 +3,7 @@ const stripe = require("stripe")(process.env.STRIPE_KEY);
 const auth = require("../middlewares/authMiddleware");
 const Booking = require("../model/bookingModel");
 const Show = require("../model/showModel");
+const EmailHelper = require("../utils/emailHelper");
 
 router.post("/make-payment", auth, async (req, res) => {
     try {
@@ -48,6 +49,9 @@ router.post("/book-show", auth, async (req, res) => {
         await Show.findByIdAndUpdate(req.body.show, {
             bookedSeats: updatedBookedSeats,
         });
+
+        // 
+        await EmailHelper("ticketTemplate.html", ??, {});
 
         res.send({
             success: true,
