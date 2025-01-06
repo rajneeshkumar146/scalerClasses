@@ -6,18 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        ul {
+            list-style: none;
+        }
+
+        .sender {
+            background-color: lightcoral;
+            margin-left: 4rem;
+            padding: 1rem;
+            border-bottom: 2px solid black;
+            border-radius: 2px;
+        }
+
+        .receiver {
+            background-color: lightblue;
+            margin-left: 2rem;
+            padding: 1rem;
+            border-bottom: 2px solid black;
+            border-radius: 2px;
+        }
+
+        .messages {
+            width: 50%;
+            /* margin: 0 auto; */
+        }
+    </style>
+    
 </head>
 
 <body>
     <h1>Websockets</h1>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        const socket = io();
-        socket.on("message", (data) => {
-            console.log("Receiving message: ", data);
-        })
-    </script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
