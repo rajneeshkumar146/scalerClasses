@@ -33,11 +33,20 @@
             /* margin: 0 auto; */
         }
     </style>
-    
+
 </head>
 
 <body>
     <h1>Websockets</h1>
+    <input type="text" id="message">
+    <button id="send">send</button>
+    <button id="createGrp"> Create Group</button>
+    <button id="joinGrp"> Join Group</button>
+    <button id="stg">Send to Group</button>
+    <button id="leave">Leave Group</button>
+    <div class="messages">
+        <ul id="list"></ul>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="./script.js"></script>
